@@ -1,0 +1,105 @@
+###############################################################################
+#
+# ED-SBS developments and checkpoint list
+#
+# Authors: Bertin Clément
+# email: clement.maxime.bertin@jpl.nasa.gov
+#
+###############################################################################
+
+
+############################################
+#                   v2                     #
+############################################
+
+################ Setup v2.0 ################
+Change to setup v2.0 (Bertin et al. 2023):
+
+> GRL Setup v2 working on Darwin_v67x adapted to the darwin_v68o checkpoint.
+> Change “tDOC” to “rDOC”
+> Refinement of the surface layer (10m to 3,3,4m)
+> DARWIN_OPTIONS.h: define DARWIN_SOLVESAPHE and data.darwin 
+ “selectPHsolver=1”
+
+############################################
+#                   v3                     #
+############################################
+
+################ Setup v3.0 ################
+Change to setup v2.0: Add CDOM tracer
+
+> Adapt setup v2.0 (PPP paper) working on darwin_v68o to darwin_v69a checkpoint.
+> DARWIN_OPTIONS.h: define DARWIN_ALLOW_CDOM and define ALLOW_CDOM_CARBON_UNITS
+> Add CDOM runoff variables
+	- DARWIN_EXF_FIELDS.h, DARWIN_EXF_PARAMS.h, data.darwin
+	- darwin_exf_init_fixed.F, darwin_exf_load.F, darwin_exf_readparms.F
+	- darwin_exf_init_varia.F, darwin_cons.F, darwin_forcing.F, darwin_monitor.F
+> Change CDOM degradation schemes: darwin_plankton.F
+> Add CDOM tracer:
+	- PTRACERS_SIZE.h (set to 33 tracers)
+	- data.ptracers, data.obcs
+> Add Nutrient, light and temperature limitation diagnostics: 
+	- darwin_forcing.F, darwin_diagnostics_init.F, darwin_plankton.F
+
+################ Setup v3.1 ################
+Change to Setup v3: Add CDOM light attenuation
+	- darwin_light.F: Add PAR attenuation by CDOM
+
+
+################ Setup v3.2 ################
+Change to Setup v3: Add CDOM decay and temperature effect
+
+> Compute light attenuation due to CDOM in one variable “CDOMdecay”:
+	- DARWIN_FIELDS.h: Add CDOMdecay variable
+	- darwin_forcing.F: compute CDOMdecay
+	- seaice_growth.F: update penetrative shortwave flux beyond first layer
+	- apply_forcing.F, external_forcing.F: set the biophysical feedback of CDOM attenuation
+
+############################################
+#                   v4                     #
+############################################
+
+################ Setup v4.0 ################
+Change to Setup v3.2: Add new ecosystem modeling Arctic phytoplankton
+
+> Update the biogeochemical river runoff from mmol/m3/s to mmol/m2/s
+	- delete darwin_add_surfforc.F and create new forcing files
+
+> Update the ecosystem to Arctic Ocean:
+	- DARWIN_OPTIONS.f: set DARWIN_RANDOM_TRAITS to undef
+ 	- data.darwin: add in &DARWIN_PARAMS: 
+		darwin_chlInitBalanced = .TRUE.; diaz_ini_fac= 0.1;
+		PARmin = 1E-3; freefemax = .1E-3; scav_rat= 2.314814814814815E-6; 
+		phygrazmin= 120E-10; hollexp = 1.E0
+		remove &DARWIN_RANDOM_PARAMS (a_Xmin for phyto changed to 0.0125 mmolC/m3)
+		add &DARWIN_TRAIT_PARAMS
+	- add data.traits file
+
+> Add NH4, NO3 and PO4 river runoff: replace DINrunoff by NO3runoff, N02runoff & NH4runoff
+				     and IPrunoff by PO4runoff in:
+	- DARWIN_EXF_FIELDS.h, DARWIN_EXF_PARAMS.h, data.darwin
+	- darwin_exf_init_fixed.F, darwin_exf_load.F, darwin_exf_readparms.F, darwin_check.F,
+	- darwin_exf_init_varia.F, darwin_cons.F, darwin_forcing.F, darwin_monitor.F
+
+################ Setup v4.1 ################
+Change to Setup v4.0: Add radiative transfer package
+
+> Add radtrans package features:
+	- package.conf: add line with radtrans
+	- DARWIN_OPTIONS.h: undefine DARWIN_CHL_INIT_LEGACY option
+	- DARWIN_SIZE.h: nopt=12
+	- data.pkg: add useRADTRANS = .TRUE.
+	- add RADTRANS_SIZE.h and data.radtrans
+	- data.darwin: add radtrans parameters (see DARWIN_RADTRANS_PARAMS)
+
+> Compatibility with CDOM developments (version 3) and radtrans:
+	- delete darwin_light.F
+
+
+
+
+
+
+
+
+

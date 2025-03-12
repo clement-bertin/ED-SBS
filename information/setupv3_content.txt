@@ -1,0 +1,47 @@
+###############################################################################
+#
+# Configuration file depicting the setup contents
+#
+# Authors: Bertin Clément
+# email: clement.maxime.bertin@jpl.nasa.gov
+#
+###############################################################################
+
+################ Introduction ################
+The following set up is extracted from Caroll et al. 2020 Global set up. This set up is a regional cut of the Southeastern Beaufort Sea with the influence of the Mackenzie River. 6 riverine biogeochemical tracers contribution is added and the DOC tracer is splitter into 2 pools (labile and refractory) and a CDOM tracer with it's biophysical feedback on the light and temperature. These setups work on the darwin3 checkpoint 69a.
+    ### v0 ###
+    - Add CDOM tracer connected with Carbon cycle but no influence on light nor temperature
+    ### v1 ###
+    - CDOM tracer light attenuation is added
+    ### v2 ###
+    - CDOM tracer heating is added
+
+################ Tracers involved ################
+Note: n=33 from version 2 to 3. From version 4 CDOM tracer is added (tracer 21) and n=33
+
+1. DIC     12. DOFe     23. c2
+2. NO3     13. POC      24. c3
+3. NO2     14. PON      25. c4
+4. NH4     15. POP      26. c5
+5. PO4     16. POFe     27. c6
+6. FeT     17. POSi     28. c7
+7. SiO2    18. PIC      29. Chl1
+8. DOC     19. ALK      30. Chl2
+9. rDOC    20. O2       31. Chl3
+10. DON    21. CDOM     32. Chl4
+11. DOP    22. c1       33. Chl5
+
+
+################ Ecosystem (5 Phyto / 2 Zoo)  ################
+The Ecosystem simulated contains (see Caroll et al., 2020):
+  > 5 phytoplankton types:
+      - Diatoms
+      - Large Eukaryotes
+      - Synechococcus type 1
+      - Synechococcus type 2
+      - Prochlorococcus
+  > 2 Zooplankton types:
+      - Small zooplankton (will feed on pico-euk, and bacteria)
+        nominal size 45um ESD
+      - Large zooplankton (will feed on diatoms, haptophyte and dinoflagellate)
+        nominal size 100um
