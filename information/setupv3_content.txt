@@ -17,7 +17,6 @@ The following set up is extracted from Caroll et al. 2020 Global set up. This se
     - CDOM tracer heating is added
 
 ################ Tracers involved ################
-Note: n=33 from version 2 to 3. From version 4 CDOM tracer is added (tracer 21) and n=33
 
 1. DIC     12. DOFe     23. c2
 2. NO3     13. POC      24. c3

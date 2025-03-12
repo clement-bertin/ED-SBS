@@ -47,6 +47,3 @@ The Ecosystem simulated contains:
         			Nominal size 45um ESD
       - Large zooplankton (c7): Will feed on diatoms, haptophyte and dinoflagellate
         			Nominal size 100um
------------------------------------------------------------------------------------------------------------------
-  > REMOVED |--> 1 Bacteria (c8): 
-	- Free-living heterotrophic bacteria (c8): Nominal size 0.6um ESD.
